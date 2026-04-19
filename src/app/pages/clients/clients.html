@@ -1,0 +1,90 @@
+<div class="min-h-screen bg-gray-950 text-white">
+
+    <nav class="bg-gray-900 px-8 py-4 flex justify-between items-center border-b border-gray-800">
+      <h1 class="text-xl font-bold text-blue-400">Freelance CRM</h1>
+      <div class="flex gap-6 text-gray-400 text-sm">
+        <a href="/dashboard" class="hover:text-white">Dashboard</a>
+        <a href="/clients" class="text-white font-semibold">Clients</a>
+        <a href="/invoices" class="hover:text-white">Invoices</a>
+      </div>
+    </nav>
+  
+    <!-- Add Client Form -->
+    @if (showForm) {
+      <div class="px-8 pt-8">
+        <div class="bg-gray-900 rounded-xl p-6 mb-6">
+          <h2 class="text-lg font-semibold mb-4">Add New Client</h2>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="text-gray-400 text-sm mb-1 block">Client Name</label>
+              <input [(ngModel)]="newClient.name" type="text" placeholder="e.g. Pizza Roma"
+                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 outline-none"/>
+            </div>
+            <div>
+              <label class="text-gray-400 text-sm mb-1 block">Project</label>
+              <input [(ngModel)]="newClient.project" type="text" placeholder="e.g. Website redesign"
+                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 outline-none"/>
+            </div>
+            <div>
+              <label class="text-gray-400 text-sm mb-1 block">Status</label>
+              <select [(ngModel)]="newClient.status"
+                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 outline-none">
+                <option>Active</option>
+                <option>Pending</option>
+                <option>Finished</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-gray-400 text-sm mb-1 block">Value (€)</label>
+              <input [(ngModel)]="newClient.value" type="number" placeholder="1200"
+                class="w-full bg-gray-800 text-white rounded-lg px-4 py-2 outline-none"/>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <button (click)="addClient()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm">Save</button>
+            <button (click)="showForm = false" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg text-sm">Cancel</button>
+          </div>
+        </div>
+      </div>
+    }
+  
+    <!-- Filter + Add button -->
+    <div class="px-8 pt-8 flex justify-between items-center">
+      <div class="flex gap-3">
+        <button (click)="setFilter('All')" [class.bg-blue-600]="filter === 'All'" class="px-4 py-2 rounded-lg bg-gray-800 text-sm">All</button>
+        <button (click)="setFilter('Active')" [class.bg-blue-600]="filter === 'Active'" class="px-4 py-2 rounded-lg bg-gray-800 text-sm">Active</button>
+        <button (click)="setFilter('Pending')" [class.bg-blue-600]="filter === 'Pending'" class="px-4 py-2 rounded-lg bg-gray-800 text-sm">Pending</button>
+        <button (click)="setFilter('Finished')" [class.bg-blue-600]="filter === 'Finished'" class="px-4 py-2 rounded-lg bg-gray-800 text-sm">Finished</button>
+      </div>
+      <button (click)="showForm = true" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">+ Add Client</button>
+    </div>
+  
+    <!-- Table -->
+    <div class="p-8">
+      <div class="bg-gray-900 rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="text-gray-400 border-b border-gray-800">
+            <tr>
+              <th class="text-left px-6 py-4">Client</th>
+              <th class="text-left px-6 py-4">Project</th>
+              <th class="text-left px-6 py-4">Status</th>
+              <th class="text-left px-6 py-4">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (client of filteredClients(); track client.name) {
+              <tr class="border-b border-gray-800 hover:bg-gray-800 transition">
+                <td class="px-6 py-4">{{ client.name }}</td>
+                <td class="px-6 py-4 text-gray-400">{{ client.project }}</td>
+                <td class="px-6 py-4">
+                  <span [class]="getBadgeClass(client. status)">{{ client.status }}</span>
+                </td>
+                <td class="px-6 py-4 text-green-400">€{{ client.value }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+  </div>

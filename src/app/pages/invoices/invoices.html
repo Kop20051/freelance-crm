@@ -1,0 +1,58 @@
+<div class="min-h-screen bg-gray-950 text-white">
+
+  <nav class="bg-gray-900 px-8 py-4 flex justify-between items-center border-b border-gray-800">
+    <h1 class="text-xl font-bold text-blue-400">Freelance CRM</h1>
+    <div class="flex gap-6 text-gray-400 text-sm">
+      <a href="/dashboard" class="hover:text-white">Dashboard</a>
+      <a href="/clients" class="hover:text-white">Clients</a>
+      <a href="/invoices" class="text-white font-semibold">Invoices</a>
+    </div>
+  </nav>
+
+  <div class="p-8 max-w-2xl">
+    <h2 class="text-2xl font-bold mb-6">Create Invoice</h2>
+
+    <div class="bg-gray-900 rounded-xl p-6 mb-6">
+      <div class="mb-4">
+        <label class="text-gray-400 text-sm mb-1 block">Client Name</label>
+        <input [(ngModel)]="clientName" type="text" placeholder="e.g. Pizza Roma"
+          class="w-full bg-gray-800 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+    </div>
+
+    <div class="bg-gray-900 rounded-xl p-6 mb-6">
+      <h3 class="text-gray-400 text-sm mb-4">Services</h3>
+      @for (item of items; track $index) {
+        <div class="flex gap-3 mb-3">
+          <input [(ngModel)]="item.name" type="text" placeholder="Service name"
+            class="flex-1 bg-gray-800 text-white rounded-lg px-4 py-2 outline-none"/>
+          <input [(ngModel)]="item.price" type="number" placeholder="€"
+            class="w-28 bg-gray-800 text-white rounded-lg px-4 py-2 outline-none"/>
+          <button (click)="removeItem($index)" class="text-red-400 hover:text-red-300 px-2">✕</button>
+        </div>
+      }
+      <button (click)="addItem()" class="text-blue-400 hover:text-blue-300 text-sm mt-2">+ Add service</button>
+    </div>
+
+    <div class="bg-gray-900 rounded-xl p-6 mb-6">
+      <div class="flex justify-between text-gray-400 mb-2">
+        <span>Subtotal</span>
+        <span>€{{ subtotal() }}</span>
+      </div>
+      <div class="flex justify-between text-gray-400 mb-4">
+        <span>VAT (20%)</span>
+        <span>€{{ vat() }}</span>
+      </div>
+      <div class="flex justify-between text-white font-bold text-lg border-t border-gray-700 pt-4">
+        <span>Total</span>
+        <span>€{{ total() }}</span>
+      </div>
+    </div>
+
+    <button (click)="generatePDF()"
+      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">
+      Generate Invoice PDF
+    </button>
+  </div>
+
+</div>

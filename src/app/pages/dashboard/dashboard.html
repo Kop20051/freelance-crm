@@ -1,0 +1,35 @@
+<div class="min-h-screen bg-gray-950 text-white">
+
+    <nav class="bg-gray-900 px-8 py-4 flex justify-between items-center border-b border-gray-800">
+      <h1 class="text-xl font-bold text-blue-400">Freelance CRM</h1>
+      <div class="flex gap-6 text-gray-400 text-sm items-center">
+        <a href="/dashboard" class="text-white font-semibold">Dashboard</a>
+        <a href="/clients" class="hover:text-white">Clients</a>
+        <a href="/invoices" class="hover:text-white">Invoices</a>
+        <button (click)="logout()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">Logout</button>
+      </div>
+    </nav>
+  
+    <div class="p-8 grid grid-cols-3 gap-6">
+      <div class="bg-gray-900 rounded-xl p-6">
+        <p class="text-gray-400 text-sm">Total Revenue</p>
+        <p class="text-3xl font-bold mt-1">€12,400</p>
+      </div>
+      <div class="bg-gray-900 rounded-xl p-6">
+        <p class="text-gray-400 text-sm">Active Clients</p>
+        <p class="text-3xl font-bold mt-1">8</p>
+      </div>
+      <div class="bg-gray-900 rounded-xl p-6">
+        <p class="text-gray-400 text-sm">Pending Invoices</p>
+        <p class="text-3xl font-bold mt-1">3</p>
+      </div>
+    </div>
+  
+    <div class="px-8 pb-8">
+      <div class="bg-gray-900 rounded-xl p-6">
+        <h2 class="text-gray-400 text-sm mb-4">Monthly Revenue</h2>
+        <canvas #revenueChart></canvas>
+      </div>
+    </div>
+  
+  </div>
